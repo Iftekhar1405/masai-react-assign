@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components in React</title>
+  <style>
+    .color{
+        color: rgb(83, 189, 127);
+    }
+    .num{
+        background-color: rgb(201, 246, 215);
+        padding: 10px;
+        color: rgb(110, 162, 131);
+    }
+    .para{
+        color: rgb(178, 185, 195);
+    }
+    .child{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px;
+    }
+    .parent{
+        display: flex;
+        align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const Parent = () => (
+        <>
+        <h1> Getting started in <span className = 'color'>3 easy steps </span></h1>
+        <div class="parent">
+        <Child num= '1' heading = 'hey bro how you doing, is it good' para = 'If youre looking for random paragraphs, youve come to the right place. When a random word or a random sentence isnt quite enough the next logical step is to find a random paragraph We created the Random Paragraph Generator with you in mind' />    
+        <Child num= '2' heading = 'bruuhhhhh how is it, is it good' para = 'If youre looking for random paragraphs, youve come to the right place. When a random word or a random sentence isnt quite enough the next logical step is to find a random paragraph We created the Random Paragraph Generator with you in mind' />    
+        <Child num= '3' heading = 'sis look here , is it good' para = 'If youre looking for random paragraphs, youve come to the right place. When a random word or a random sentence isnt quite enough the next logical step is to find a random paragraph We created the Random Paragraph Generator with you in mind' />    
+
+        </div>
+        </>
+    )
+    const Child = ({num,heading,para}) => (
+    < div className='child'>    
+    <span className='num'>{num} </span>
+        <h3>{heading} </h3>
+        <p className='para'>{para} </p>
+    </div>
+    )
+
+    let root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<Parent/>)
+  </script>
+</body>
+</html>
