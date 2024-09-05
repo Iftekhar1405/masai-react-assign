@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components in React</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const Child = ({h2,h1,col,bgcol}) => (
+        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+             <h2>{h2} </h2>
+            <div>
+                <ul>
+                    <li>hello evryone this is iftekhar</li>
+                    <li>hello evryone this is iftekhar</li>
+                    <li>hello evryone this is iftekhar</li></ul>
+                </div>
+                <h1>{h1} </h1>
+                <button style = {{color:col, backgroundColor:bgcol, padding:'20px',border:'none',borderRadius:'5px'}}> Get Started</button>
+        </div>
+
+    )
+    const Parent = () => (
+        <>
+        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+            <h1> The right plan for your busiuness</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi explicabo corporis tempora odit, numquam vel cum id quaerat optio! Et, eligendi tempora? Quod ab eum iure, deserunt quidem nostrum inventore?</p>
+            </div> 
+        <Child h2='Starter' h1 = 'Free' bgcol ='rgb(200, 209, 222)' col ='rgb(97, 79, 171)'/>
+        <Child h2='lorem plus' h1 = '$32.00' bgcol ='rgb(97, 79, 171)' col ='rgb(200, 209, 222)'/>
+        <Child h2='lorem pro' h1 = '$50.00' bgcol ='rgb(200, 209, 222)' col ='rgb(97, 79, 171)'/>
+        </>
+    )
+    let root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<Parent/>)
+  </script>
+</body>
+</html>
