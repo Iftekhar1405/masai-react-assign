@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const InputHobby = () =>{
+        const [hobbies,setHobies] = React.useState([''])
+
+        const addField = () => (
+            setHobies([...hobbies,''])
+        )
+
+        const removeField = (index) => {
+            let newHobby = hobbies.filter((_,i) => i !== index) 
+            setHobies(newHobby)
+        }
+
+        const handleInput = (index,event) =>{
+            let newHobby = [...hobbies]
+            newHobby[index] = event.target.value
+            setHobies(newHobby)
+        }
+        const handleSubmit = () =>{
+            event.preventDefault()
+            console.log(hobbies)
+        }
+        return(
+            <>
+            <h1>Add hobbies</h1>
+            <form onSubmit ={handleSubmit} >
+                {hobbies.map((value,index)=>(
+                    <div key = {index} style={{ marginBottom: "10px" }}>
+                        <input type="text" 
+                        key={index}
+                        value={value}
+            onChange={(event) => handleInput(index, event)}
+            placeholder={`Hobby ${index + 1}`}
+            required />
+            <button onClick = {removeField} style={{ marginLeft: "10px" }}> Remove</button>
+                        </div>
+                ))}
+                <button onClick = {addField} style={{ marginLeft: "10px" }}> Add More</button>
+                <button type = 'submit' style={{ marginLeft: "10px" }}> Submit</button>
+                </form>
+            </>
+        )
+            
+        
+
+    }
+
+    let root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<InputHobby/>)
+  </script>
+</html>
