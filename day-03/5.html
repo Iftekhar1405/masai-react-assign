@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Level Feedback Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #root {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      label {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      textarea {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const MultiLevelFeedbackForm = () => {
+      const [currentLevel, setCurrentLevel] = React.useState(1);
+      const [feedback, setFeedback] = React.useState({
+        productQuality: "",
+        serviceExperience: "",
+        overallSatisfaction: "",
+      });
+
+      const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFeedback({ ...feedback, [name]: value });
+      };
+
+      const handleNext = () => {
+        if (currentLevel < 3) {
+          setCurrentLevel(currentLevel + 1);
+        }
+      };
+
+      const handlePrevious = () => {
+        if (currentLevel > 1) {
+          setCurrentLevel(currentLevel - 1);
+        }
+      };
+
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("Feedback Submitted:", feedback);
+        alert("Feedback Submitted! Thank you for your response.");
+        // Reset form
+        setFeedback({
+          productQuality: "",
+          serviceExperience: "",
+          overallSatisfaction: "",
+        });
+        setCurrentLevel(1);
+      };
+
+      return (
+        <div>
+          <h2>Feedback Form - Level {currentLevel}</h2>
+          <form onSubmit={handleSubmit}>
+            {currentLevel === 1 && (
+              <div>
+                <label htmlFor="productQuality">Product Quality</label>
+                <textarea
+                  id="productQuality"
+                  name="productQuality"
+                  value={feedback.productQuality}
+                  onChange={handleInputChange}
+                  placeholder="Please provide your feedback on product quality"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+            )}
+
+            {currentLevel === 2 && (
+              <div>
+                <label htmlFor="serviceExperience">Service Experience</label>
+                <textarea
+                  id="serviceExperience"
+                  name="serviceExperience"
+                  value={feedback.serviceExperience}
+                  onChange={handleInputChange}
+                  placeholder="Please provide your feedback on service experience"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+            )}
+
+            {currentLevel === 3 && (
+              <div>
+                <label htmlFor="overallSatisfaction">Overall Satisfaction</label>
+                <textarea
+                  id="overallSatisfaction"
+                  name="overallSatisfaction"
+                  value={feedback.overallSatisfaction}
+                  onChange={handleInputChange}
+                  placeholder="Please provide your overall feedback"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+            )}
+
+            <div className="navigation-buttons">
+              {currentLevel > 1 && (
+                <button type="button" onClick={handlePrevious}>
+                  Previous
+                </button>
+              )}
+              {currentLevel < 3 && (
+                <button type="button" onClick={handleNext}>
+                  Next
+                </button>
+              )}
+              {currentLevel === 3 && <button type="submit">Submit</button>}
+            </div>
+          </form>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<MultiLevelFeedbackForm />, document.getElementById("root"));
+  </script>
+</html>
