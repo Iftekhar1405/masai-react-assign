@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #root {
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        background-color: #f9f9f9;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      li:hover {
+        transform: translateY(-5px);
+        background-color: #e0f7fa;
+      }
+
+      li:nth-child(even) {
+        background-color: #e8f5e9;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const greet = [{name:'iftekhar',greet : 'happy sad life'},{name:'khushi',greet : 'good night'},
+    {name:'amaan',greet : 'what i like, i do it twice'}
+    ]
+
+    const Greeting = () =>(
+        <div>
+        <ul>
+            {greet.map((el)=>(
+                <li> hello {el.name} {el.greet} </li>
+            ))}
+            </ul>    
+        </div>
+    )
+    let root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<Greeting/>)
+
+</script>
+</html>
