@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #root {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .question-container {
+        margin-bottom: 20px;
+      }
+
+      .options-container {
+        display: flex;
+        margin-top: 10px;
+        gap: 20px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+
+      .result-button {
+        background-color: #28a745;
+        padding: 12px;
+        width: 100%;
+        font-size: 1rem;
+        margin-top: 20px;
+      }
+
+      .result-button:hover {
+        background-color: #218838;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const questions = [
+        {
+          question: "Who is the greatest rapper according to Eminem?",
+          options: ["Drake", "Kendrick", "Tupac", "Eminem"],
+          correctAnswer: "Eminem",
+        },
+        {
+          question: "Who is the greatest rapper according to Drake?",
+          options: ["Drake", "Kendrick", "Tupac", "Eminem"],
+          correctAnswer: "Drake",
+        },
+        {
+          question: "Who is the greatest rapper according to Kendrick?",
+          options: ["Drake", "Kendrick", "Tupac", "Eminem"],
+          correctAnswer: "Kendrick",
+        },
+        {
+          question: "Who is the greatest rapper according to Tupac?",
+          options: ["Drake", "Kendrick", "Tupac", "Eminem"],
+          correctAnswer: "Tupac",
+        },
+      ];
+
+      const Quiz = () => {
+        const [score, setScore] = React.useState(0);
+        const [showRes, setShowRes] = React.useState(false);
+        const [answered, setAnswered] = React.useState([]);
+
+        const handleAnswer = (isCorrect, key) => {
+          if (!answered.includes(key)) {
+            if (isCorrect) {
+              setScore(score + 1);
+            }
+            setAnswered([...answered, key]);
+          }
+        };
+
+        return (
+          <>
+            {questions.map((el, index) => (
+              <div key={index} className="question-container">
+                <h2>{el.question}</h2>
+                <div className="options-container">
+                  {el.options.map((option, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleAnswer(option === el.correctAnswer, index)}
+                      disabled={answered.includes(index)}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <button className="result-button" onClick={() => setShowRes(true)}>
+              Show Result
+            </button>
+            {showRes && <h1>Your Score: {score}</h1>}
+          </>
+        );
+      };
+
+      ReactDOM.render(<Quiz />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
