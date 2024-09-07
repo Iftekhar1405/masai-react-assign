@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #root {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      li p {
+        margin-left: 10px;
+        font-size: 16px;
+      }
+
+      li.completed p {
+        text-decoration: line-through;
+        color: #999;
+      }
+
+      li.incomplete p {
+        color: #333;
+      }
+
+      li input[type="checkbox"] {
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const Todo = () => {
+      const [todos, setTodos] = React.useState([]);
+      const [title, setTitle] = React.useState("");
+      const [status, setStatus] = React.useState(false);
+
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        let newTodo = { title, status };
+        setTodos([...todos, newTodo]);
+        setStatus(false);
+        setTitle("");
+      };
+
+      const handleStatusChange = (index) => {
+        const updatedTodos = todos.map((todo, i) =>
+          i === index ? { ...todo, status: !todo.status } : todo
+        );
+        setTodos(updatedTodos);
+      };
+
+      return (
+        <>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              placeholder="Enter title"
+            />
+            <label htmlFor="checkbox">
+              Status
+              <input
+                type="checkbox"
+                id="checkbox"
+                checked={status}
+                onChange={() => setStatus(!status)}
+              />
+            </label>
+
+            <button type="submit">Submit</button>
+          </form>
+
+          {todos.length > 0 && (
+            <ul>
+              {todos.map((el, index) => (
+                <li
+                  key={index}
+                  className={el.status ? "completed" : "incomplete"}
+                >
+                  <input
+                    type="checkbox"
+                    checked={el.status}
+                    onChange={() => handleStatusChange(index)}
+                  />
+                  <p>{el.title}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      );
+    };
+
+    ReactDOM.render(<Todo />, document.getElementById("root"));
+  </script>
+</html>
