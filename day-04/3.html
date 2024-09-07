@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      input {
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .profile {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+
+      .profile h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .profile h3,
+      .profile h5,
+      .profile h2,
+      .profile h4 {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const userProfiles = [
+      { id: 1, name: "Iftekhar Ahmed", age: 20, email: "iftekhar.ahmed@example.com", occupation: "Web Developer", location: "Mumbai, India" },
+      { id: 2, name: "Khushi Sharma", age: 22, email: "khushi.sharma@example.com", occupation: "UI/UX Designer", location: "Delhi, India" },
+      { id: 3, name: "Amaan Khan", age: 25, email: "amaan.khan@example.com", occupation: "Software Engineer", location: "Bangalore, India" },
+      { id: 4, name: "Rohan Gupta", age: 30, email: "rohan.gupta@example.com", occupation: "Project Manager", location: "Hyderabad, India" },
+      { id: 5, name: "Priya Mehta", age: 28, email: "priya.mehta@example.com", occupation: "Data Analyst", location: "Pune, India" },
+      { id: 6, name: "Siddharth Verma", age: 27, email: "siddharth.verma@example.com", occupation: "Backend Developer", location: "Chennai, India" },
+      { id: 7, name: "Neha Patel", age: 24, email: "neha.patel@example.com", occupation: "Content Writer", location: "Ahmedabad, India" },
+      { id: 8, name: "Ankit Singh", age: 26, email: "ankit.singh@example.com", occupation: "DevOps Engineer", location: "Kolkata, India" },
+      { id: 9, name: "Shruti Desai", age: 29, email: "shruti.desai@example.com", occupation: "Marketing Specialist", location: "Jaipur, India" },
+      { id: 10, name: "Vikram Rao", age: 32, email: "vikram.rao@example.com", occupation: "Product Manager", location: "Gurgaon, India" }
+    ];
+
+    const Profile = () => {
+      const [searchTerm, setSearchTerm] = React.useState("");
+
+      const filteredProfiles = userProfiles.filter((profile) =>
+        profile.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      return (
+        <div>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search by name"
+          />
+          <div>
+            {filteredProfiles.length > 0 ? (
+              filteredProfiles.map((el) => (
+                <div key={el.id} className="profile">
+                  <p>ID: {el.id}</p>
+                  <h1>Name: {el.name}</h1>
+                  <h3>Age: {el.age}</h3>
+                  <h5>Email: {el.email}</h5>
+                  <h2>Occupation: {el.occupation}</h2>
+                  <h4>Location: {el.location}</h4>
+                </div>
+              ))
+            ) : (
+              <p>No profiles found</p>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<Profile />);
+  </script>
+</html>
