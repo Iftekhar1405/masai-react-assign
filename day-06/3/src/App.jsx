@@ -41,7 +41,7 @@ function App() {
     setIsRunning(false);
   };
 
-  const progressBarWidth = timer > 0 ? ((timer - timeLeft) / timer) * 100 : 0; // calculate progress percentage
+  const progressBarWidth = timer > 0 ? ((timer - timeLeft) / timer) * 100 : 0; 
 
   return (
     <>
@@ -51,7 +51,7 @@ function App() {
         ref={timerInput}
         value={timer}
         onChange={(event) => {
-          const value = Math.max(Number(event.target.value), 0); // ensure non-negative values
+          const value = Math.max(Number(event.target.value), 0); 
           setTimer(value);
           setTimeLeft(value);
         }}
