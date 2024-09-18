@@ -1,13 +1,10 @@
 import { createContext, useContext, useState } from 'react';
 import './App.css';
 
-// Create a ThemeContext
 const ThemeContext = createContext();
 
-// Create a UserContext
 const UserContext = createContext();
 
-// ThemeProvider Component
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light'); // 'light' or 'dark'
 
@@ -22,7 +19,6 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-// UserProvider Component
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ name: 'Iftekhar Ahmed', loggedIn: true });
 
@@ -49,7 +45,6 @@ function App() {
 
 export default App;
 
-// MainComponent that uses both contexts
 const MainComponent = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { user, logout } = useContext(UserContext);
